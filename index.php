@@ -30,10 +30,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Ra
 .sc-btn{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--cc);border:1px solid var(--cc);padding:.5rem 1.2rem;background:transparent;cursor:pointer;font-family:'Raleway',sans-serif;transition:all .3s;position:relative}
 .story-card:hover .sc-btn{background:var(--cc);color:#fff}
 
-#s-game{display:flex;flex-direction:column;background:#000}
-#game-bg{flex:1;position:relative;overflow:hidden;background-size:cover;background-position:center;transition:background-image .8s}
-#game-bg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:55%;background:linear-gradient(transparent,rgba(0,0,0,.92));pointer-events:none}
-#game-bg::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45);pointer-events:none}
+#s-game{display:flex;flex-direction:column;height:100vh;background:#000}
+#game-bg{flex:0 0 52%;position:relative;overflow:hidden;background-size:cover;background-position:center;transition:background-image .8s}
+#game-bg::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(transparent,rgba(0,0,0,.96));pointer-events:none}
+#game-bg::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,.42);pointer-events:none}
 
 #game-hud{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;z-index:10}
 .hud-title{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-style:italic;color:rgba(255,255,255,.4);letter-spacing:.1em}
@@ -41,15 +41,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Ra
 .hud-btn{background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);padding:.35rem .7rem;font-size:.65rem;cursor:pointer;font-family:'Raleway',sans-serif;letter-spacing:.1em;transition:all .2s}
 .hud-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
 
-#game-textbox{background:linear-gradient(180deg,rgba(5,5,15,.93),rgba(3,3,10,.99));border-top:1px solid rgba(255,255,255,.06);padding:1.2rem 1.5rem 1rem;min-height:220px;display:flex;flex-direction:column;position:relative}
-#speaker-name{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--story-color,var(--red));margin-bottom:.6rem;font-weight:500;min-height:1.2em}
-#story-text{font-size:clamp(.85rem,2.5vw,.95rem);line-height:1.9;color:var(--text);flex:1;white-space:pre-line;min-height:80px}
-#choices{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem;opacity:0;transition:opacity .4s}
+#game-textbox{flex:1;background:linear-gradient(180deg,rgba(4,4,14,.97),rgba(2,2,8,1));border-top:1px solid rgba(255,255,255,.08);padding:1rem 1.5rem 1rem;display:flex;flex-direction:column;overflow-y:auto;gap:.5rem}
+#speaker-name{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--story-color,var(--red));font-weight:500;min-height:1em;flex-shrink:0}
+#story-text{font-size:clamp(.82rem,2.2vw,.92rem);line-height:1.88;color:var(--text);white-space:pre-line;flex-shrink:0;padding-bottom:.5rem}
+#choices-sep{display:none}
+#choices{display:flex;flex-direction:column;gap:.5rem;flex-shrink:0;opacity:0;transition:opacity .5s;margin-top:.3rem;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.06)}
 #choices.visible{opacity:1}
-.choice-btn{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:.75rem 1rem;text-align:left;cursor:pointer;font-family:'Raleway',sans-serif;font-size:.8rem;letter-spacing:.05em;border-left:2px solid var(--story-color,var(--red));transition:all .25s;display:flex;align-items:center;gap:.8rem}
-.choice-btn::before{content:'›';color:var(--story-color,var(--red));font-size:1.1rem}
-.choice-btn:hover{background:rgba(255,255,255,.08);border-color:var(--story-color,var(--red));transform:translateX(4px)}
-#tap-hint{position:absolute;bottom:.8rem;right:1rem;font-size:.6rem;letter-spacing:.15em;color:rgba(255,255,255,.2);text-transform:uppercase;animation:blink 1.5s infinite}
+.choice-btn{background:transparent;border:none;border-left:2px solid var(--story-color,var(--red));color:rgba(215,210,200,.8);padding:.6rem 1rem;text-align:left;cursor:pointer;font-family:'Raleway',sans-serif;font-size:.79rem;letter-spacing:.04em;transition:all .22s;display:flex;align-items:flex-start;gap:.7rem;line-height:1.5}
+.choice-btn::before{content:'›';color:var(--story-color,var(--red));font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.choice-btn:hover{background:rgba(255,255,255,.05);padding-left:1.3rem;color:#fff}
+#tap-hint{font-size:.58rem;letter-spacing:.15em;color:rgba(255,255,255,.18);text-transform:uppercase;animation:blink 1.5s infinite;text-align:right;flex-shrink:0}
 @keyframes blink{0%,100%{opacity:.2}50%{opacity:.6}}
 
 #chapter-card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.92);z-index:20;opacity:0;pointer-events:none;transition:opacity .5s;flex-direction:column;text-align:center}
@@ -154,7 +155,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Ra
     <div id="speaker-name"></div>
     <div id="story-text"></div>
     <div id="choices"></div>
-    <div id="tap-hint">Toucher pour continuer</div>
+    <div id="tap-hint">Toucher pour continuer ›</div>
   </div>
 </div>
 
@@ -1453,4 +1454,3 @@ document.getElementById('s-game').addEventListener('click',e=>{
 </script>
 </body>
 </html>
- 
